@@ -8,13 +8,13 @@ import java.util.concurrent.TimeUnit;
 
 public class MonefyMainClass extends MonefyBaseClass {
 
-    public static void main(String[] args) throws MalformedURLException, Exception {
-    //Enter income:
+    public static void main(String[] args) throws Exception {
+        //Enter income:
         String incomeAmount = "4385.55";
-    //Enter Expense:
+        //Enter Expense:
         String expenseAmount = "1569.44";
 
-     //Instantiating driver element:
+        //Instantiating driver element:
         AndroidDriver<AndroidElement> driver = null;
         try {
             driver = capabilities();
@@ -43,8 +43,9 @@ public class MonefyMainClass extends MonefyBaseClass {
         AndroidElement balance = driver.findElementById("com.monefy.app.lite:id/balance_amount");
         balance.click();
         int balanceLength = balance.getText().length();
-        String balanceAmount = balance.getText().substring(9, balanceLength);
+        String balanceAmount = balance.getText().substring(7, balanceLength);
         balanceAmount = removeChar(balanceAmount, ",");
+        balanceAmount = removeChar(balanceAmount, "$");
         double newBalance = str2tDouble(balanceAmount);
 
         // Defining common Id for Incomes and Expenses:
