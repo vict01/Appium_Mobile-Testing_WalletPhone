@@ -3,16 +3,16 @@ package N26.company;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.WebDriver;
-import java.net.MalformedURLException;
+import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 
 public class MonefyMainClass extends MonefyBaseClass {
 
     public static void main(String[] args) throws Exception {
         //Enter income:
-        String incomeAmount = "4385.55";
+        String incomeAmount = "987654321.55";
         //Enter Expense:
-        String expenseAmount = "1569.44";
+        String expenseAmount = "123456789.44";
 
         //Instantiating driver element:
         AndroidDriver<AndroidElement> driver = null;
@@ -25,11 +25,11 @@ public class MonefyMainClass extends MonefyBaseClass {
         final WebDriver.Timeouts implicitlyWait = driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         // Adding new Income:
-       driver.findElementByXPath("//android.widget.ImageView[@resource-id='com.monefy.app.lite:id/income_button']").click();
-       typeAmountId(incomeAmount, driver);
+        driver.findElementByXPath("//android.widget.ImageView[@resource-id='com.monefy.app.lite:id/income_button']").click();
+        typeAmountId(incomeAmount, driver);
         // Indicating Income Category:
-       driver.findElementById("com.monefy.app.lite:id/textViewChooseCategory").click();
-       driver.findElementById("com.monefy.app.lite:id/imageView").click();
+        driver.findElementById("com.monefy.app.lite:id/textViewChooseCategory").click();
+        driver.findElementById("com.monefy.app.lite:id/imageView").click();
 
         // Adding new Expense:
         driver.findElementById("com.monefy.app.lite:id/expense_button").click();
@@ -44,30 +44,29 @@ public class MonefyMainClass extends MonefyBaseClass {
         balance.click();
         int balanceLength = balance.getText().length();
         String balanceAmount = balance.getText().substring(7, balanceLength);
-        balanceAmount = removeChar(balanceAmount, ",");
-        balanceAmount = removeChar(balanceAmount, "$");
-        double newBalance = str2tDouble(balanceAmount);
+        balanceAmount = removeChar(balanceAmount, "$, ");
+        BigDecimal newBalance = str2BigDecimal(balanceAmount);
 
         // Defining common Id for Incomes and Expenses:
         String id = "com.monefy.app.lite:id/textViewWholeAmount";
 
-       //Getting income:
+        //Getting income:
         int incomeLength = typeElementId(driver, id).get(0).getText().length();
         String income = typeElementId(driver, id).get(0).getText().substring(1, incomeLength);
         income = removeChar(income, ",");
-        double newIncome = str2tDouble(income);
+        BigDecimal newIncome = str2BigDecimal(income);
 
         //Getting expense:
         int expenseLength = typeElementId(driver, id).get(1).getText().length();
         String expense = typeElementId(driver, id).get(1).getText().substring(1, expenseLength);
         expense = removeChar(expense, ",");
-        double newExpense = str2tDouble(expense);
+        BigDecimal newExpense = str2BigDecimal(expense);
 
         // Subtract income minus expense:
-        double validation = restTwoNum(newIncome, newExpense);
-        validation = formatDouble(validation);
-        newBalance = formatDouble(newBalance);
-        printElement("The balance is: " + newIncome + " - " + newExpense + " = Balance(" + newBalance + ") or (Incomes - Expenses)"+ validation);
+        BigDecimal validation = restTwoNum(newIncome, newExpense);
+
+        // newBalance = formatDouble(newBalance);
+        printElement("The balance is: " + newIncome + " - " + newExpense + " = Balance:(" + newBalance + ") or Incomes - Expenses:(" + validation+")");
 
         //Obtained result in test execution:
         if (areEqual(validation, newBalance))

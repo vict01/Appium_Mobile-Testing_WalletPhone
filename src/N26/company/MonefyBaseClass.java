@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 
 public class MonefyBaseClass {
 
-    public static  AndroidDriver<AndroidElement> capabilities() throws MalformedURLException, ReflectiveOperationException {
+    public static  AndroidDriver<AndroidElement> capabilities() throws Exception {
         File apkPath = new File("src");
         File apkName = new File(apkPath, "com.monefy.app.lite_2019-10-27.apk");
         DesiredCapabilities cap = new DesiredCapabilities();
@@ -25,11 +25,11 @@ public class MonefyBaseClass {
         return driver;
     }
 
-    public static void typeAmountId(String value, AndroidDriver<AndroidElement> driver) throws MalformedURLException {
+    public static void typeAmountId(String value, AndroidDriver<AndroidElement> driver) {
         int aLength = value.length();
         int begging = 0;
         String dot = ".";
-
+        driver.findElementById("com.monefy.app.lite:id/buttonKeyboardPlus").click();
         for (int i=1; i<=aLength; i++){
             String aSubstring = value.substring(begging, i);
                if (aSubstring.equals(dot)){
@@ -45,26 +45,30 @@ public class MonefyBaseClass {
         return amounts;
     }
 
-    public static double restTwoNum(double valueA, double valueB) {
-       return valueA-valueB;
+    public static BigDecimal restTwoNum(BigDecimal valueA, BigDecimal valueB) {
+        BigDecimal result = new BigDecimal(String.valueOf(valueA)).subtract(valueB);
+       return result;
     }
 
-    public static double formatDouble(double num) {
+    public static BigDecimal str2BigDecimal (String num){
         BigDecimal newValue = new BigDecimal(num).setScale(2, BigDecimal.ROUND_DOWN);
-        return newValue.doubleValue();
-    }
-
-    public static double str2tDouble(String chain){
-        return Double.parseDouble(chain);
+        return newValue;
     }
 
     public static String removeChar(String str, String charValue) {
-        str = str.replace(charValue, "");
+        int aLength = charValue.length();
+        int begging = 0;
+
+        for (int i=1; i<=aLength; i++){
+            String aSubstring = charValue.substring(begging, i);
+            str = str.replace(aSubstring, "");
+            begging++;
+        }
         return str;
     }
 
-    public static boolean areEqual (double firstNumber, double secondNumber){
-        return firstNumber==secondNumber;
+    public static boolean areEqual (BigDecimal firstNumber, BigDecimal secondNumber){
+        return firstNumber.equals(secondNumber);
     }
 
     public static void printElement(String value) {
