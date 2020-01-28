@@ -72,7 +72,7 @@ public class MonefyTest extends GenericMethods {
 
         //Obtained result in test execution:
         if (areEqual(validation, newBalance))
-            printMsg("Successful calculation!");
+             printMsg("Successful calculation!");
         else printMsg("Failed calculation!");
 
     }

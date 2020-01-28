@@ -1,15 +1,15 @@
 package N26.monefy;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.io.File;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.net.URL;
 
 public class GenericMethods {
 
