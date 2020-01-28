@@ -28,11 +28,11 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/selenium-java-3.141.59/libs" />
+          <root url="file://$MODULE_DIR$/lib/selenium-java-3.141.59/libs" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/selenium-java-3.141.59/libs" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/lib/selenium-java-3.141.59/libs" recursive="false" />
       </library>
     </orderEntry>
     <orderEntry type="library" name="commons-lang3-3.9-sources" level="project" />
