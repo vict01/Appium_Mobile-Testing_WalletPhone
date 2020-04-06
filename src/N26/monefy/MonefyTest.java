@@ -3,6 +3,7 @@ package N26.monefy;
 import N26.monefy.screens.*;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 
@@ -13,7 +14,7 @@ public class MonefyTest extends GenericMethods {
         AndroidDriver<AndroidElement> driver = null;
         try {
             driver = capabilities();
-        } catch (ReflectiveOperationException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         assert driver != null;
@@ -71,9 +72,13 @@ public class MonefyTest extends GenericMethods {
         printMsg("Incomes minus Expenses is: " + validation + " and the Balances is: " + newBalance);
 
         //Obtained result in test execution:
-        if (areEqual(validation, newBalance))
-             printMsg("Successful calculation!");
-        else printMsg("Failed calculation!");
+        if (areEqual(validation, newBalance)) {
+            printMsg("Successful calculation!");
+        } else {
+            printMsg("Failed calculation!");
+        }
+        closeDriver();
+
 
     }
 }

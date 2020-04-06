@@ -2,7 +2,9 @@ package N26.monefy.screens;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class Balances {
@@ -33,8 +35,10 @@ public class Balances {
     }
 
     public static BigDecimal incomesMinusExpenses(int amountListSize, List<AndroidElement> categoryElement, List<AndroidElement> amountElement) {
-        BigDecimal totalIncome = new BigDecimal(0).setScale(2, BigDecimal.ROUND_DOWN);
-        BigDecimal totalExpense = new BigDecimal(0).setScale(2, BigDecimal.ROUND_DOWN);
+    //    BigDecimal totalIncome = new BigDecimal(0).setScale(2, BigDecimal.ROUND_DOWN);
+        BigDecimal totalIncome = new BigDecimal(0).setScale(2, RoundingMode.HALF_DOWN);
+  //      BigDecimal totalExpense = new BigDecimal(0).setScale(2, BigDecimal.ROUND_DOWN);
+        BigDecimal totalExpense = new BigDecimal(0).setScale(2, RoundingMode.HALF_DOWN);
         for (int i = 0; i < amountListSize; i++) {
             String category = categoryElement.get(i).getText();
             String amount = amountElement.get(i).getText().replace("$", "");
